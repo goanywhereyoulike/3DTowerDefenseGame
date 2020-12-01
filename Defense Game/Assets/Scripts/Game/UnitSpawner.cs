@@ -39,12 +39,18 @@ public class UnitSpawner : MonoBehaviour
 
     private IEnumerator SpawnWave(int waveNumber)
     {
+        ObjectPoolManager poolManager = ServiceLocator.Get<ObjectPoolManager>();
         for (int i = 0; i < enemiesPerWave; ++i)
         {
-            GameObject unitGO = Instantiate(UnitPrefab, transform.position, Quaternion.identity);
+            GameObject unitGO = poolManager.GetObjectFromPool("Enemies");
+            unitGO.SetActive(true);
+            unitGO.transform.position = transform.position;
+            unitGO.transform.rotation = transform.rotation;
+            //Instantiate(UnitPrefab, transform.position, Quaternion.identity);
             Enemy enemy = unitGO.GetComponent<Enemy>();
             enemyMngr = FindObjectOfType<EnemyManager>();
             enemyMngr.enemies.Add(enemy);
+            enemyMngr.TotalEnemies++;
             enemy.Initialize(_path);
             yield return new WaitForSeconds(0.5f);
         }

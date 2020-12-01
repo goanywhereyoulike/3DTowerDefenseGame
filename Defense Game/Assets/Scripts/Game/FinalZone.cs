@@ -5,10 +5,10 @@ using UnityEngine;
 
 public class FinalZone : MonoBehaviour
 {
-    public event Action OnEnemyPassed;
+
     private int enemypassed = 0;
     public int Enemypassed
-    { get { return enemypassed; }set { enemypassed = value; OnEnemyPassed?.Invoke(); } }
+    { get { return enemypassed; }set { enemypassed = value; if (Enemypassed >= 3) { ServiceLocator.Get<UIManager>().GameOver(); }   } }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -17,6 +17,7 @@ public class FinalZone : MonoBehaviour
         {
             Destroy(other.gameObject);
             Enemypassed++;
+            ServiceLocator.Get<UIManager>().UpdateGameDisplay(3 - Enemypassed, Enemypassed);
         }
     }
 

@@ -85,7 +85,7 @@ public class DefeceTower : MonoBehaviour
 
     private void Shoot()
     {
-        if (currentTarget != null)
+        if (currentTarget != null && currentTarget.activeInHierarchy)
         {
             //muzzleflash.Play();
             currentTarget.GetComponent<Enemy>().TakeDamage(damage);

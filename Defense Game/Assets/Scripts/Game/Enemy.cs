@@ -14,6 +14,7 @@ public class Enemy : MonoBehaviour
     private Animator _animator;
     private float dividedSpeed = 0.0f;
     private bool isDead = false;
+    public bool IsDead { get { return isDead; } }
     private WaypointManager.Path _path;
     private int _currentWaypoint = 0;
     private float _currentHealth = 0.0f;
@@ -22,36 +23,16 @@ public class Enemy : MonoBehaviour
 
     private float Enemyspeed;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
-        _currentHealth = maxHealth;
-        _animator = GetComponent<Animator>();
-        _agent = GetComponent<NavMeshAgent>();
-        if (_agent != null)
+        _animator = gameObject.GetComponent<Animator>();
+        if (_animator == null)
         {
-            _agent.SetDestination(waypoint.position);
-            _agent.speed = maxSpeed;
-        }
-        dividedSpeed = 1 / maxSpeed;
-
-        AnimationClip[] animations = _animator.runtimeAnimatorController.animationClips;
-        if (animations == null || animations.Length <= 0)
-        {
-            Debug.Log("animations Error");
+            Debug.Log("Animator component does not exist.");
             return;
         }
-
-        for (int i = 0; i < animations.Length; ++i)
-        {
-            if (animations[i].name == "Mutant Dying")
-            {
-                deathClipLength = animations[i].length;
-                break;
-            }
-        }
     }
-
+    // Start is called before the first frame update
 
     // Update is called once per frame
     void Update()
@@ -84,6 +65,31 @@ public class Enemy : MonoBehaviour
     public void Initialize(WaypointManager.Path path)
     {
         _path = path;
+        _currentHealth = maxHealth;
+
+        _agent = gameObject.AddComponent<NavMeshAgent>();
+        if (_agent != null)
+        {
+            _agent.SetDestination(waypoint.position);
+            _agent.speed = maxSpeed;
+        }
+        dividedSpeed = 1 / maxSpeed;
+
+        AnimationClip[] animations = _animator.runtimeAnimatorController.animationClips;
+        if (animations == null || animations.Length <= 0)
+        {
+            Debug.Log("animations Error");
+            return;
+        }
+
+        for (int i = 0; i < animations.Length; ++i)
+        {
+            if (animations[i].name == "Mutant Dying")
+            {
+                deathClipLength = animations[i].length;
+                break;
+            }
+        }
     }
 
     public float GetHealth()
@@ -103,10 +109,20 @@ public class Enemy : MonoBehaviour
     public IEnumerator Kill()
     {
         isDead = true;
-
         _agent.speed = 0;
         yield return new WaitForSeconds(deathClipLength);
-        Destroy(gameObject);
+      
+        ResetAndRecycle();
+    }
+
+    private void ResetAndRecycle()
+    {
+        _currentWaypoint = 0;
+        isDead = false;
+        _currentHealth = maxHealth;
+        transform.rotation = Quaternion.identity;
+        ServiceLocator.Get<ObjectPoolManager>().RecycleObject(gameObject);
+    
     }
 
 }

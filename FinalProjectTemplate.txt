@@ -1,0 +1,26 @@
+FINAL PROJECT TEMPLATE - One Per team.
+
+Name of the game: 
+Team name:
+Theme:
+Genre:
+Game Description: Describe your game. (TO EDIT)
+Members and Roles: (TO EDIT)
+
+//DON'T EDIT THIS PART
+Roles: 
+
+Code Reviewer: This person will be responsible to review the code from other
+team members, giving feedback and approving pull requests in github. He will
+be responsible for the github project. (Set up and add team members). Also, one 
+the programmers on the team.
+
+Manager: The manager will be resposible to break the entire project into tasks
+and distribute these tasks to his team. He is also one of the programmers on the 
+team.
+
+Technical Designer: This person will be responsible to design all the technical 
+features of the game. This person will help the manager to breakdown the project
+into small features in order that the manager can distribute this task around the
+team.  
+
