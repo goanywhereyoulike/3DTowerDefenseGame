@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     private Animator _animator;
     private float dividedSpeed = 0.0f;
     private bool isDead = false;
-    public bool IsDead { get { return isDead; } }
+    public bool IsDead { get { return isDead; }set { isDead = value; } }
     private WaypointManager.Path _path;
     private int _currentWaypoint = 0;
     private float _currentHealth = 0.0f;
@@ -92,6 +92,15 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void SlowDown()
+    {
+        _agent.speed = maxSpeed / 2;
+    }
+
+    public void SpeedToNormal()
+    {
+        _agent.speed = maxSpeed;
+    }
     public float GetHealth()
     {
         return _currentHealth;
@@ -102,7 +111,11 @@ public class Enemy : MonoBehaviour
         _currentHealth -= damage;
         if (_currentHealth <= 0.0f)
         {
-            StartCoroutine("Kill");
+            if (isActiveAndEnabled)
+            {
+                StartCoroutine("Kill");
+            }
+            
         }
     }
 
@@ -111,11 +124,11 @@ public class Enemy : MonoBehaviour
         isDead = true;
         _agent.speed = 0;
         yield return new WaitForSeconds(deathClipLength);
-      
+        FindObjectOfType<EnemyManager>().TotalEnemies--;
         ResetAndRecycle();
     }
 
-    private void ResetAndRecycle()
+    public void ResetAndRecycle()
     {
         _currentWaypoint = 0;
         isDead = false;

@@ -47,7 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 20
   waypoint: {fileID: 8699016217073564374, guid: b0831379a63a13341a5e9e8a5048063f, type: 3}
-  maxHealth: 150
+  maxHealth: 200
 --- !u!1001 &8930419730145501911
 PrefabInstance:
   m_ObjectHideFlags: 0

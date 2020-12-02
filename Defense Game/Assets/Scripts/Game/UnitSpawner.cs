@@ -49,7 +49,7 @@ public class UnitSpawner : MonoBehaviour
             //Instantiate(UnitPrefab, transform.position, Quaternion.identity);
             Enemy enemy = unitGO.GetComponent<Enemy>();
             enemyMngr = FindObjectOfType<EnemyManager>();
-            enemyMngr.enemies.Add(enemy);
+            //enemyMngr.enemies.Add(enemy);
             enemyMngr.TotalEnemies++;
             enemy.Initialize(_path);
             yield return new WaitForSeconds(0.5f);

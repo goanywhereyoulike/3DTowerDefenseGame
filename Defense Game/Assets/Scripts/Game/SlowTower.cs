@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DefeceTower : MonoBehaviour
+public class SlowTower : MonoBehaviour
 {
     public float damage = 10.0f;
     float range = 50.0f;
     public float fireRate = 2.0f;
 
-    GameObject currentTarget = null;
+    protected GameObject currentTarget = null;
 
     public GameObject muzzle;
     public GameObject turretHead;
 
     //public ParticleSystem muzzleflash;
 
-    LineRenderer laser;
+    protected LineRenderer laser;
     private float nextTimeToFire = 0.0f;
     private float dividedFireRate = 0.0f;
     // Start is called before the first frame update
@@ -63,6 +63,14 @@ public class DefeceTower : MonoBehaviour
                 laser.SetPosition(0, muzzle.transform.position);
                 laser.SetPosition(1, targetposition);
             }
+            else 
+            {
+                target.GetComponent<Enemy>().SpeedToNormal();
+                if (laser.enabled)
+                {
+                    laser.enabled = false;
+                }
+            }
         }
         else
         {
@@ -86,18 +94,10 @@ public class DefeceTower : MonoBehaviour
                 {
                     retEnemy = enemies[i].gameObject;
                 }
-                else
-                {
-                    if (laser.enabled)
-                    {
-                        laser.enabled = false;
-                    }
-                }
             }
         }
         return retEnemy;
     }
-
 
     void Shoot()
     {
@@ -105,7 +105,7 @@ public class DefeceTower : MonoBehaviour
         {
             //muzzleflash.Play();
 
-            currentTarget.GetComponent<Enemy>().TakeDamage(damage);
+            currentTarget.GetComponent<Enemy>().SlowDown();
 
         }
         else
@@ -113,8 +113,8 @@ public class DefeceTower : MonoBehaviour
             if (laser.enabled)
             {
                 laser.enabled = false;
+
             }
         }
     }
-
 }

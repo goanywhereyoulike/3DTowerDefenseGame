@@ -60,7 +60,7 @@ public class GamePlayhud : MonoBehaviour
         timeText.text = "Time: " + "0";
         PlayerLife.text = "Player life: " + "3";
         EnemyPassed.text = "Enemy passed: " + "0";
-        EnemyNumber.text = "Enemy left: " + "18";
+        EnemyNumber.text = "Enemy left: " + "0";
 
         //Resumebutton.onClick.AddListener(Resume);
         //Quitbutton.onClick.AddListener(QuitGame);

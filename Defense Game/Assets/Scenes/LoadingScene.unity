@@ -1023,6 +1023,12 @@ MonoBehaviour:
   - name: Enemies
     prefab: {fileID: 8587890308807352198, guid: 67ca3e5477f4a8b46b40154aa67634e3, type: 3}
     poolSize: 18
+  - name: DefenceTower
+    prefab: {fileID: 12747018064397994, guid: ef3574bc5a2c1704786e296db6431321, type: 3}
+    poolSize: 6
+  - name: SlowTower
+    prefab: {fileID: 5206859561510202069, guid: ffc6f9d74677d4b4c8087352c8ddd646, type: 3}
+    poolSize: 4
 --- !u!1 &2109741371
 GameObject:
   m_ObjectHideFlags: 0

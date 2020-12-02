@@ -15,11 +15,13 @@ public class FinalZone : MonoBehaviour
         Enemy enemy = other.GetComponent<Enemy>();
         if (enemy != null)
         {
-            Destroy(other.gameObject);
+            enemy.IsDead = true;
+            enemy.ResetAndRecycle();
+            FindObjectOfType<EnemyManager>().TotalEnemies--;
             Enemypassed++;
             ServiceLocator.Get<UIManager>().UpdateGameDisplay(3 - Enemypassed, Enemypassed);
+            
         }
     }
 
-  
 }
